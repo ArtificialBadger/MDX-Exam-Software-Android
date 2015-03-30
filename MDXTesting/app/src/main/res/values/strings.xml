@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MDX Testing</string>
+
+    <string name="test_selection_name">Test Selection</string>
+
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+</resources>
