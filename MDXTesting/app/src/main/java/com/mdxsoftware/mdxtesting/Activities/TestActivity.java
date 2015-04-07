@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.mdxsoftware.mdxtesting.ExtraTags;
@@ -19,6 +20,8 @@ public class TestActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         this.tempTextView = (TextView) findViewById(R.id.temp_text_view);
         Intent intent = getIntent();
         this.tempTextView.setText(intent.getStringExtra(ExtraTags.TEMP_TITLE));

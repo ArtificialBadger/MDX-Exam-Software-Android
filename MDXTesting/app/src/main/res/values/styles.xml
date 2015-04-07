@@ -6,6 +6,7 @@
         <item name="android:actionBarStyle">@style/MDXActionBar</item>
         <!--<item name="android:windowBackground">@color/mdx_red</item>-->
         <item name="android:colorBackground">@color/mdx_blue</item>
+        <item name="android:actionMenuTextColor">@color/black</item>
     </style>
 
     <style name="MDXActionBar"
@@ -13,10 +14,24 @@
         <item name="android:background">@color/mdx_orange</item>
     </style>
 
-    <style name="MDXButton_large">
+    <style name="MDXButton">
         <item name="android:background">@drawable/rounded_corners_button</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:padding">8dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="MDXButton.large">
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="MDXTextView">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="MDXTextView.Large">
         <item name="android:textSize">32sp</item>
     </style>
 

@@ -46,6 +46,7 @@ public class TestAdapter extends BaseAdapter {
         TextView textView;
         if (convertView == null) {
             textView = new TextView(this.context);
+            textView.setTextAppearance(this.context, R.style.MDXTextView);
             textView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             textView.setPadding(8, 32, 8, 32);
             textView.setGravity(Gravity.CENTER);
