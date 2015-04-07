@@ -1,24 +1,22 @@
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
-    tools:context=".TestSelectionActivity">
+    android:background="@color/mdx_blue"
+    tools:context=".TestSelectionActivity"
+    android:orientation="vertical"
+    android:gravity="center">
 
-    <!-- The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
-    <TextView
-        android:id="@+id/fullscreen_content"
+    <GridView
+        android:padding="32dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:keepScreenOn="true"
-        android:textColor="#33b5e5"
-        android:textStyle="bold"
-        android:textSize="50sp"
+        android:id="@+id/test_grid_view"
         android:gravity="center"
-        android:text="@string/dummy_content" />
+        android:columnWidth="200dp"
+        android:horizontalSpacing="32dp"
+        android:verticalSpacing="32dp"
+        android:numColumns="auto_fit"/>
 
-
-</FrameLayout>
+</LinearLayout>

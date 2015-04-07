@@ -5,4 +5,9 @@
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
 
+    <color name="mdx_red">#d11141</color>
+    <color name="mdx_green">#00b159</color>
+    <color name="mdx_blue">#00aedb</color>
+    <color name="mdx_orange">#f37735</color>
+    <color name="mdx_lime">#ffc425</color>
 </resources>
