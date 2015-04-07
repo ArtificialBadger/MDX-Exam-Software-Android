@@ -1,7 +1,6 @@
 package com.mdxsoftware.mdxtesting.Activities;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -10,33 +9,58 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.mdxsoftware.mdxtesting.Adapters.TestAdapter;
-import com.mdxsoftware.mdxtesting.ExtraTags;
+import com.mdxsoftware.mdxtesting.Constants;
+import com.mdxsoftware.mdxtesting.DataModel.Exam;
+import com.mdxsoftware.mdxtesting.DataModel.Team;
+import com.mdxsoftware.mdxtesting.Dialogs.SelectTeamDialogFragment;
 import com.mdxsoftware.mdxtesting.R;
 
+import java.util.Date;
+
+/**
+ * Activity for the user to select what test they want to take
+ */
 public class TestSelectionActivity extends Activity{
 
+    // The girdView with each item representing a test
     private GridView testsGridView;
 
+    /**
+     * Called by the OS when the activity is first started
+     * Does some basic setup of the gridView
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_selection);
+
+        // While this activity is active, the screen will not dim
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        // Setting the GridView, giving it an adapter, and setting the onClick of the adapter
         this.testsGridView = (GridView) findViewById(R.id.test_grid_view);
         this.testsGridView.setAdapter(new TestAdapter(this));
         this.testsGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent intent = new Intent(getApplicationContext(), TestActivity.class);
-                intent.putExtra(ExtraTags.TEMP_TITLE, (String) parent.getAdapter().getItem(position));
-                startActivity(intent);
+                // Temporary Info until the webservice is set up
+                Team[] teams = {new Team("TEAM 1", 1), new Team("Team 2", 2), new Team("Team 3", 3)};
+                Exam exam = new Exam((String) parent.getAdapter().getItem(position), position + "", null, null, null);
+
+                // Creates a dialog fragment, that will have the user pick their team and open the test activity
+                SelectTeamDialogFragment selectTeamDialogFragment = new SelectTeamDialogFragment();
+                selectTeamDialogFragment.setArguments(teams, exam);
+                selectTeamDialogFragment.show(getFragmentManager(), Constants.TEAM_SELECTION_DIALOG_TAG);
             }
         });
 
     }
 
+    /**
+     * So that the user cannot back out of the activity
+     */
     @Override
     public void onBackPressed() {
         Toast.makeText(this, "Back was pressed", Toast.LENGTH_SHORT).show();

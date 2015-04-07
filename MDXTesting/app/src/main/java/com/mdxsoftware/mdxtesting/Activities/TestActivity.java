@@ -2,17 +2,27 @@ package com.mdxsoftware.mdxtesting.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.mdxsoftware.mdxtesting.ExtraTags;
+import com.mdxsoftware.mdxtesting.Constants;
+import com.mdxsoftware.mdxtesting.DataModel.Exam;
+import com.mdxsoftware.mdxtesting.DataModel.Team;
 import com.mdxsoftware.mdxtesting.R;
 
+/**
+ * The activity to take the test
+ */
 public class TestActivity extends Activity {
+
+    // The exam that the team is currently taking
+    private Exam exam;
+
+    // The Team that is taking the exam
+    private Team team;
 
     private TextView tempTextView;
 
@@ -20,11 +30,18 @@ public class TestActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+
+        // Don't let the screen dim while this activity is active
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         this.tempTextView = (TextView) findViewById(R.id.temp_text_view);
         Intent intent = getIntent();
-        this.tempTextView.setText(intent.getStringExtra(ExtraTags.TEMP_TITLE));
+
+        // Reads and casts the extras into usable Data
+        this.exam = (Exam) intent.getSerializableExtra(Constants.EXAM_EXTRA_TAG);
+        this.team = (Team) intent.getSerializableExtra(Constants.TEAM_EXTRA_TAG);
+
+        this.tempTextView.setText(exam.getExamTitle() + " : " + exam.getExamID() + "\n" + team.getTeamName() + " : " + team.getTeamID());
     }
 
 
