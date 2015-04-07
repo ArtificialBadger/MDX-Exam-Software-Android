@@ -1,16 +1,15 @@
 package com.mdxsoftware.mdxtesting.Adapters;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.mdxsoftware.mdxtesting.DataModel.Exam;
+import com.mdxsoftware.mdxtesting.DataModel.Team;
 import com.mdxsoftware.mdxtesting.R;
 
 /**
@@ -20,20 +19,21 @@ public class TestAdapter extends BaseAdapter {
 
     private Context context;
 
-    private String[] items = {"test 1", "second test", "THE HARD ONE", "Another Test", "Boomilever", "Astronomy"};
+    private Exam[] exams;
 
-    public TestAdapter(Context context) {
+    public TestAdapter(Context context, Exam[] exams) {
         this.context = context;
+        this.exams = exams;
     }
 
     @Override
     public int getCount() {
-        return this.items.length;
+        return this.exams.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return items[position];
+        return exams[position];
     }
 
     @Override
@@ -56,7 +56,7 @@ public class TestAdapter extends BaseAdapter {
             textView = (TextView) convertView;
         }
 
-        textView.setText(items[position]);
+        textView.setText(exams[position].getExamTitle());
         return textView;
     }
 }

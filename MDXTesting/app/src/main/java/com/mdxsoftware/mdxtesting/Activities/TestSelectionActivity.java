@@ -15,6 +15,7 @@ import com.mdxsoftware.mdxtesting.DataModel.Team;
 import com.mdxsoftware.mdxtesting.Dialogs.SelectTeamDialogFragment;
 import com.mdxsoftware.mdxtesting.R;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -38,16 +39,27 @@ public class TestSelectionActivity extends Activity{
         // While this activity is active, the screen will not dim
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        ArrayList<Exam> exams = new ArrayList<Exam>();
+        exams.add(new Exam("FirstExam", "1GUID", null, null, null));
+        exams.add(new Exam("SecondExam", "2GUID", null, null, null));
+        exams.add(new Exam("Astronomy", "3GUID", null, null, null));
+        exams.add(new Exam("Fitness", "4GUID", null, null, null));
+        exams.add(new Exam("Math Easy", "5GUID", null, null, null));
+        exams.add(new Exam("Math Hard", "6GUID", null, null, null));
+        exams.add(new Exam("Boomilever", "7GUID", null, null, null));
+        exams.add(new Exam("Code Busters", "8GUID", null, null, null));
+        exams.add(new Exam("Other Event", "9GUID", null, null, null));
+
         // Setting the GridView, giving it an adapter, and setting the onClick of the adapter
         this.testsGridView = (GridView) findViewById(R.id.test_grid_view);
-        this.testsGridView.setAdapter(new TestAdapter(this));
+        this.testsGridView.setAdapter(new TestAdapter(this, exams.toArray(new Exam[exams.size()])));
         this.testsGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 // Temporary Info until the webservice is set up
                 Team[] teams = {new Team("TEAM 1", 1), new Team("Team 2", 2), new Team("Team 3", 3)};
-                Exam exam = new Exam((String) parent.getAdapter().getItem(position), position + "", null, null, null);
+                Exam exam = (Exam) parent.getAdapter().getItem(position);
 
                 // Creates a dialog fragment, that will have the user pick their team and open the test activity
                 SelectTeamDialogFragment selectTeamDialogFragment = new SelectTeamDialogFragment();
