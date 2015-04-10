@@ -1,4 +1,4 @@
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,12 +6,53 @@
     android:background="@color/mdx_blue"
     tools:context=".TestSelectionActivity"
     android:orientation="vertical"
+    android:padding="16dp"
     android:gravity="center">
 
-    <TextView
-        android:id="@+id/temp_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/MDXTextView.Large"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-</RelativeLayout>
+        <ListView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:id="@+id/question_list_view"
+            android:background="@drawable/rounded_corners_white_large"/>
+
+        <FrameLayout
+            android:id="@+id/question_frame"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/temp_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/MDXTextView.Large"/>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/rounded_corners_white">
+
+        <TextView
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>
