@@ -18,8 +18,10 @@ import com.mdxsoftware.mdxtesting.Dialogs.SelectTeamDialogFragment;
 import com.mdxsoftware.mdxtesting.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Activity for the user to select what test they want to take
@@ -54,16 +56,19 @@ public class TestSelectionActivity extends Activity{
         questionList.add(new MultipleChoiceQuestion("Oliver Sykes is the lead singer for which band?", answers, 2));
         questionList.add(new MultipleChoiceQuestion("The lead singer of which band partnered with Kellin Quinn to make \"King for a Day\"?", answers, 4));
 
+        Date from = Calendar.getInstance().getTime();
+        Date to = new Date(from.getTime() + 600000l);
+
         ArrayList<Exam> exams = new ArrayList<Exam>();
-        exams.add(new Exam("FirstExam", "1GUID", questionList, null, null));
-        exams.add(new Exam("SecondExam", "2GUID", questionList, null, null));
-        exams.add(new Exam("Astronomy", "3GUID", null, null, null));
-        exams.add(new Exam("Fitness", "4GUID", null, null, null));
-        exams.add(new Exam("Math Easy", "5GUID", null, null, null));
-        exams.add(new Exam("Math Hard", "6GUID", null, null, null));
-        exams.add(new Exam("Boomilever", "7GUID", null, null, null));
-        exams.add(new Exam("Code Busters", "8GUID", null, null, null));
-        exams.add(new Exam("Metal Quiz", "9GUID", questionList, null, null));
+        exams.add(new Exam("FirstExam", "1GUID", questionList, from, to));
+        exams.add(new Exam("SecondExam", "2GUID", questionList, from, to));
+        exams.add(new Exam("Astronomy", "3GUID", questionList, from, to));
+        exams.add(new Exam("Fitness", "4GUID", questionList, from, to));
+        exams.add(new Exam("Math Easy", "5GUID", questionList, from, to));
+        exams.add(new Exam("Math Hard", "6GUID", questionList, from, to));
+        exams.add(new Exam("Boomilever", "7GUID", questionList, from, to));
+        exams.add(new Exam("Code Busters", "8GUID", questionList, from, to));
+        exams.add(new Exam("Metal Quiz", "9GUID", questionList, from, to));
 
         // Setting the GridView, giving it an adapter, and setting the onClick of the adapter
         this.testsGridView = (GridView) findViewById(R.id.test_grid_view);
