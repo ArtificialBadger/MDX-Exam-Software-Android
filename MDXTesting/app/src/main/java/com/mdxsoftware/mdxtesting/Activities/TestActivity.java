@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mdxsoftware.mdxtesting.Adapters.QuestionAdapter;
 import com.mdxsoftware.mdxtesting.Constants;
@@ -45,8 +46,8 @@ public class TestActivity extends Activity {
     // The TextView notifying the user how much time they have left on their exam
     private TextView timeRemainingTextView;
 
-    //TODO remove this textView
-    private TextView tempTextView;
+    private TextView examTextView;
+    private TextView teamTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,8 @@ public class TestActivity extends Activity {
         // Sets the views to objects on the screen
         this.questionListView = (ListView) findViewById(R.id.question_list_view);
         this.questionFrame = (FrameLayout) findViewById(R.id.question_frame);
-        this.tempTextView = (TextView) findViewById(R.id.temp_text_view);
+        this.teamTextView = (TextView) findViewById(R.id.team_text_view);
+        this.examTextView = (TextView) findViewById(R.id.exam_text_view);
         this.timeRemainingTextView = (TextView) findViewById(R.id.time_remaining_text_view);
 
         // Reads and casts the extras into usable Data
@@ -67,13 +69,18 @@ public class TestActivity extends Activity {
         this.exam = (Exam) intent.getSerializableExtra(Constants.EXAM_EXTRA_TAG);
         this.team = (Team) intent.getSerializableExtra(Constants.TEAM_EXTRA_TAG);
 
+        this.examTextView.setText("Team: " + this.exam.getExamTitle());
+        this.teamTextView.setText("Exam: " + this.team.getTeamName());
+
         this.questionListView.setAdapter(new QuestionAdapter(exam.getQuestionList()));
 
         setUpTimeRemainingTextView();
-
-        this.tempTextView.setText(exam.getExamTitle() + " : " + exam.getExamID() + "\n" + team.getTeamName() + " : " + team.getTeamID());
     }
 
+    /**
+     * Sets up the Time Remaining Text View so that the user knows how much time is left for them to take the exam.
+     * TextView updates every 1000 milliseconds, it is not uncommon for the clock to skip a second here and there, it is just syncing.
+     */
     private void setUpTimeRemainingTextView()
     {
         new CountDownTimer(exam.getValidTo().getTime() - Calendar.getInstance().getTimeInMillis(), 1000)//exam.getValidTo().getTime(), 1000)
@@ -92,11 +99,16 @@ public class TestActivity extends Activity {
             @Override
             public void onFinish() {
                 timeRemainingTextView.setText("Finish");
+                //TODO: What happens after the time runs out?
             }
         }.start();
     }
 
-
+    @Override
+    public void onBackPressed() {
+        //TODO: Back pressed while taking exam
+        Toast.makeText(this, "Back was pressed", Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
