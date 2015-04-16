@@ -52,23 +52,26 @@ public class TestSelectionActivity extends Activity{
         answers.add("Pierce the Veil");
 
         List<Question> questionList = new ArrayList<Question>();
-        questionList.add(new MultipleChoiceQuestion("Who wrote the song \"Pittsburgh\"?", answers, 0));
-        questionList.add(new MultipleChoiceQuestion("Oliver Sykes is the lead singer for which band?", answers, 2));
-        questionList.add(new MultipleChoiceQuestion("The lead singer of which band partnered with Kellin Quinn to make \"King for a Day\"?", answers, 4));
+//        questionList.add(new MultipleChoiceQuestion("Who wrote the song \"Pittsburgh\"?", answers, 0));
+//        questionList.add(new MultipleChoiceQuestion("Oliver Sykes is the lead singer for which band?", answers, 2));
+//        questionList.add(new MultipleChoiceQuestion("The lead singer of which band partnered with Kellin Quinn to make \"King for a Day\"?", answers, 4));
+        questionList.add(new MultipleChoiceQuestion("Question 1", answers, 0));
+        questionList.add(new MultipleChoiceQuestion("This is Question 2", answers, 2));
+        questionList.add(new MultipleChoiceQuestion("This is the third and final question", answers, 4));
 
         Date from = Calendar.getInstance().getTime();
         Date to = new Date(from.getTime() + 600000l);
 
         ArrayList<Exam> exams = new ArrayList<Exam>();
-        exams.add(new Exam("FirstExam", "1GUID", questionList, from, to));
-        exams.add(new Exam("SecondExam", "2GUID", questionList, from, to));
-        exams.add(new Exam("Astronomy", "3GUID", questionList, from, to));
-        exams.add(new Exam("Fitness", "4GUID", questionList, from, to));
-        exams.add(new Exam("Math Easy", "5GUID", questionList, from, to));
-        exams.add(new Exam("Math Hard", "6GUID", questionList, from, to));
-        exams.add(new Exam("Boomilever", "7GUID", questionList, from, to));
-        exams.add(new Exam("Code Busters", "8GUID", questionList, from, to));
-        exams.add(new Exam("Metal Quiz", "9GUID", questionList, from, to));
+        exams.add(new Exam("FirstExam", "FE-GUID", questionList, from, to));
+        exams.add(new Exam("SecondExam", "SE-GUID", questionList, from, to));
+        exams.add(new Exam("Astronomy", "A-GUID", questionList, from, to));
+        exams.add(new Exam("Fitness", "F-GUID", questionList, from, to));
+        exams.add(new Exam("Math Easy", "ME-GUID", questionList, from, to));
+        exams.add(new Exam("Math Hard", "MH-GUID", questionList, from, to));
+        exams.add(new Exam("Boomilever", "B-GUID", questionList, from, to));
+        exams.add(new Exam("Code Busters", "CB-GUID", questionList, from, to));
+        exams.add(new Exam("Metal Quiz", "MQ-GUID", questionList, from, to));
 
         // Setting the GridView, giving it an adapter, and setting the onClick of the adapter
         this.testsGridView = (GridView) findViewById(R.id.test_grid_view);

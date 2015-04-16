@@ -32,37 +32,55 @@
             android:layout_height="match_parent"
             android:background="@drawable/rounded_corners_white_large">
 
-            <TextView
-                android:id="@+id/temp_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/MDXTextView.Large"/>
-
         </FrameLayout>
 
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginTop="16dp">
 
-        <TextView
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="6"
             android:layout_height="match_parent"
-            android:padding="8dp"
-            android:text="0:14:35"
-            android:textSize="30sp"
-            android:gravity="center"
-            android:id="@+id/time_remaining_text_view"
-            android:background="@drawable/rounded_corners_white_large"/>
+            android:background="@drawable/rounded_corners_white_large">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/team_text_view"
+                style="@style/MDXTextView.Large"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/exam_text_view"
+                style="@style/MDXTextView.Large"/>
 
 
-    </RelativeLayout>
+        </LinearLayout>
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:padding="8dp"
+                android:textSize="30sp"
+                android:gravity="center"
+                android:id="@+id/time_remaining_text_view"
+                android:background="@drawable/rounded_corners_white_large"/>
+
+
+
+
+    </LinearLayout>
 
 
 
