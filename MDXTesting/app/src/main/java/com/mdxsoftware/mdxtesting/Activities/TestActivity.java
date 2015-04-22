@@ -6,8 +6,9 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,30 +16,25 @@ import android.widget.Toast;
 import com.mdxsoftware.mdxtesting.Adapters.QuestionAdapter;
 import com.mdxsoftware.mdxtesting.Constants;
 import com.mdxsoftware.mdxtesting.DataModel.Exam;
+import com.mdxsoftware.mdxtesting.DataModel.Question;
 import com.mdxsoftware.mdxtesting.DataModel.Team;
+import com.mdxsoftware.mdxtesting.Fragments.QuestionFragments.MultipleChoiceFragment;
+import com.mdxsoftware.mdxtesting.Fragments.QuestionFragments.QuestionFragment;
 import com.mdxsoftware.mdxtesting.R;
 
-import org.w3c.dom.Text;
-
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 /**
  * The activity to take the test
  */
-public class TestActivity extends Activity {
+public class TestActivity extends Activity implements QuestionFragment.OnFragmentInteractionListener, ListView.OnItemClickListener {
 
     // The exam that the team is currently taking
     private Exam exam;
 
     // The Team that is taking the exam
     private Team team;
-
-    // The frame for switching out the question fragments
-    private FrameLayout questionFrame;
 
     // The ListView for the questions on the test
     private ListView questionListView;
@@ -59,20 +55,20 @@ public class TestActivity extends Activity {
 
         // Sets the views to objects on the screen
         this.questionListView = (ListView) findViewById(R.id.question_list_view);
-        this.questionFrame = (FrameLayout) findViewById(R.id.question_frame);
         this.teamTextView = (TextView) findViewById(R.id.team_text_view);
         this.examTextView = (TextView) findViewById(R.id.exam_text_view);
         this.timeRemainingTextView = (TextView) findViewById(R.id.time_remaining_text_view);
 
-        // Reads and casts the extras into usable Data
+        // Reads and casts the extras into usable Objects
         Intent intent = getIntent();
         this.exam = (Exam) intent.getSerializableExtra(Constants.EXAM_EXTRA_TAG);
         this.team = (Team) intent.getSerializableExtra(Constants.TEAM_EXTRA_TAG);
 
-        this.examTextView.setText("Team: " + this.exam.getExamTitle());
-        this.teamTextView.setText("Exam: " + this.team.getTeamName());
+        this.examTextView.setText("Exam: " + this.exam.getExamTitle());
+        this.teamTextView.setText("Team: " + this.team.getTeamName());
 
         this.questionListView.setAdapter(new QuestionAdapter(exam.getQuestionList()));
+        this.questionListView.setOnItemClickListener(this);
 
         setUpTimeRemainingTextView();
     }
@@ -130,5 +126,20 @@ public class TestActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Question question = (Question) parent.getAdapter().getItem(position);
+
+        switch (question.getType()) {
+            case MultipleChoice:
+                this.getFragmentManager().beginTransaction().add(R.id.question_frame, new MultipleChoiceFragment()).commit();
+                break;
+            default:
+                Toast.makeText(this, question.getType().toString(), Toast.LENGTH_SHORT).show();
+                break;
+        }
+
     }
 }
