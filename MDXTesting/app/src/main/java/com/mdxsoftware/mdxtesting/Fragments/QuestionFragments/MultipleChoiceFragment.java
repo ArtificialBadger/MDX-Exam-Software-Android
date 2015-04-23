@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mdxsoftware.mdxtesting.DataModel.MultipleChoiceQuestion;
 import com.mdxsoftware.mdxtesting.DataModel.Question;
@@ -15,7 +16,7 @@ import com.mdxsoftware.mdxtesting.R;
 /**
  * Created by Isaac on 4/22/2015.
  */
-public class MultipleChoiceFragment extends QuestionFragment {
+public class MultipleChoiceFragment extends QuestionFragment implements RadioGroup.OnCheckedChangeListener {
 
     private TextView questionTextView;
 
@@ -49,9 +50,15 @@ public class MultipleChoiceFragment extends QuestionFragment {
             answersRadioGroup.addView(button);
         }
 
+        answersRadioGroup.setOnCheckedChangeListener(this);
+
 
         return baseView;
 
     }
 
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        Toast.makeText(getActivity(), ((RadioButton) getView().findViewById(checkedId)).getText(), Toast.LENGTH_SHORT).show();
+    }
 }
