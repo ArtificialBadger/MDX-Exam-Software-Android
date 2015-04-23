@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 
+import com.mdxsoftware.mdxtesting.DataModel.Question;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -14,18 +16,21 @@ import android.os.Bundle;
  */
 public class QuestionFragment extends Fragment {
 
+    protected static final String QUESTION_PARAM = "exam_parameter";
+
+    protected Question question;
+
     private OnFragmentInteractionListener mListener;
 
     public QuestionFragment() {
         // Required empty public constructor
     }
 
-    public static QuestionFragment newInstance() {
+    public static QuestionFragment newInstance(Question question) {
         QuestionFragment fragment = new QuestionFragment();
-        // Bundle args = new Bundle();
-        // args.putString(ARG_PARAM1, param1);
-        // args.putString(ARG_PARAM2, param2);
-        // fragment.setArguments(args);
+        Bundle args = new Bundle();
+        args.putSerializable(QUESTION_PARAM, question);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -33,8 +38,7 @@ public class QuestionFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            // mParam1 = getArguments().getString(ARG_PARAM1);
-            // mParam2 = getArguments().getString(ARG_PARAM2);
+            this.question = (Question) getArguments().getSerializable(QUESTION_PARAM);
         }
     }
 

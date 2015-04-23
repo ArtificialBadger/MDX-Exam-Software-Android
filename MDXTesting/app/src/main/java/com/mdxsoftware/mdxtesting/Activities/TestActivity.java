@@ -103,7 +103,7 @@ public class TestActivity extends Activity implements QuestionFragment.OnFragmen
     @Override
     public void onBackPressed() {
         //TODO: Back pressed while taking exam
-        Toast.makeText(this, "Back was pressed", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "The back button is disabled while taking an exam", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -134,7 +134,7 @@ public class TestActivity extends Activity implements QuestionFragment.OnFragmen
 
         switch (question.getType()) {
             case MultipleChoice:
-                this.getFragmentManager().beginTransaction().add(R.id.question_frame, new MultipleChoiceFragment()).commit();
+                this.getFragmentManager().beginTransaction().replace(R.id.question_frame, MultipleChoiceFragment.newInstance(question)).commit();
                 break;
             default:
                 Toast.makeText(this, question.getType().toString(), Toast.LENGTH_SHORT).show();
