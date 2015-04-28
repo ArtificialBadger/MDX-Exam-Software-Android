@@ -20,7 +20,7 @@ public class QuestionFragment extends Fragment {
 
     protected Question question;
 
-    private OnFragmentInteractionListener mListener;
+    protected OnFragmentInteractionListener mListener;
 
     public QuestionFragment() {
         // Required empty public constructor
@@ -62,6 +62,7 @@ public class QuestionFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         //public void onFragmentInteraction(Uri uri);
+        public void onAnswerChanged(Question question);
     }
 
 }

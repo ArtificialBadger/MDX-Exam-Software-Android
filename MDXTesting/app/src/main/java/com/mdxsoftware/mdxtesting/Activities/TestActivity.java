@@ -14,7 +14,9 @@ import android.widget.Toast;
 import com.mdxsoftware.mdxtesting.Adapters.QuestionAdapter;
 import com.mdxsoftware.mdxtesting.Constants;
 import com.mdxsoftware.mdxtesting.DataModel.Exam;
+import com.mdxsoftware.mdxtesting.DataModel.MultipleChoiceQuestion;
 import com.mdxsoftware.mdxtesting.DataModel.Question;
+import com.mdxsoftware.mdxtesting.DataModel.ShortAnswerQuestion;
 import com.mdxsoftware.mdxtesting.DataModel.Team;
 import com.mdxsoftware.mdxtesting.Fragments.QuestionFragments.MultipleChoiceFragment;
 import com.mdxsoftware.mdxtesting.Fragments.QuestionFragments.QuestionFragment;
@@ -121,5 +123,20 @@ public class TestActivity extends Activity implements QuestionFragment.OnFragmen
                 break;
         }
 
+    }
+
+    @Override
+    public void onAnswerChanged(Question question) {
+        switch (question.getType()) {
+            case MultipleChoice:
+                Toast.makeText(this, ((MultipleChoiceQuestion) question).getEnteredAnswerIndex() + " is the index of the answer", Toast.LENGTH_SHORT).show();
+                break;
+            case ShortAnswer:
+                Toast.makeText(this, ((ShortAnswerQuestion) question).getEnteredAnswer(), Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                Toast.makeText(this, question.getType().toString(), Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 }

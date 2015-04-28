@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mdxsoftware.mdxtesting.DataModel.MultipleChoiceQuestion;
 import com.mdxsoftware.mdxtesting.DataModel.Question;
@@ -42,7 +41,6 @@ public class MultipleChoiceFragment extends QuestionFragment implements RadioGro
 
         questionTextView.setText(mulChoiceQuestion.getQuestion());
 
-
         for (String answer : mulChoiceQuestion.getAnswers())
         {
             RadioButton button = new RadioButton(getActivity());
@@ -50,15 +48,18 @@ public class MultipleChoiceFragment extends QuestionFragment implements RadioGro
             answersRadioGroup.addView(button);
         }
 
+        if (mulChoiceQuestion.getEnteredAnswerIndex() >= 0 && mulChoiceQuestion.getEnteredAnswerIndex() < mulChoiceQuestion.getAnswers().size()) {
+            answersRadioGroup.check(answersRadioGroup.getChildAt(mulChoiceQuestion.getEnteredAnswerIndex()).getId());
+        }
+
         answersRadioGroup.setOnCheckedChangeListener(this);
 
-
         return baseView;
-
     }
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-        Toast.makeText(getActivity(), ((RadioButton) getView().findViewById(checkedId)).getText(), Toast.LENGTH_SHORT).show();
+        ((MultipleChoiceQuestion) question).setEnteredAnswerIndex(answersRadioGroup.indexOfChild(group.findViewById(checkedId)));
+        this.mListener.onAnswerChanged(this.question);
     }
 }

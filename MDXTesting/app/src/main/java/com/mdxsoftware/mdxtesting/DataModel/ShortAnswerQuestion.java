@@ -7,19 +7,29 @@ public class ShortAnswerQuestion extends Question {
 
     private String question;
 
-    private String answer;
+    private String sampleAnswer;
 
-    public ShortAnswerQuestion(String question, String answer) {
+    private String enteredAnswer;
+
+    public ShortAnswerQuestion(String question, String sampleAnswer) {
         this.type = QuestionType.ShortAnswer;
         this.question = question;
-        this.answer = answer;
+        this.sampleAnswer = sampleAnswer;
     }
 
     public String getQuestion() {
         return question;
     }
 
-    public String getAnswer() {
-        return answer;
+    public String getSampleAnswer() {
+        return sampleAnswer;
+    }
+
+    public String getEnteredAnswer() {
+        return enteredAnswer;
+    }
+
+    public void setEnteredAnswer(String enteredAnswer) {
+        this.enteredAnswer = enteredAnswer;
     }
 }

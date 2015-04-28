@@ -11,13 +11,16 @@ public class MultipleChoiceQuestion extends Question {
 
     private List<String> answers;
 
-    private int correctAnswer;
+    private int correctAnswerIndex;
 
-    public MultipleChoiceQuestion(String question, List<String> answers, int correctAnswer) {
+    private int enteredAnswerIndex;
+
+    public MultipleChoiceQuestion(String question, List<String> answers, int correctAnswerIndex) {
         this.type = QuestionType.MultipleChoice;
         this.question = question;
         this.answers = answers;
-        this.correctAnswer = correctAnswer;
+        this.correctAnswerIndex = correctAnswerIndex;
+        this.enteredAnswerIndex = -1;
     }
 
     public String getQuestion() {
@@ -28,7 +31,15 @@ public class MultipleChoiceQuestion extends Question {
         return answers;
     }
 
-    public int getCorrectAnswer() {
-        return correctAnswer;
+    public int getCorrectAnswerIndex() {
+        return correctAnswerIndex;
+    }
+
+    public int getEnteredAnswerIndex() {
+        return enteredAnswerIndex;
+    }
+
+    public void setEnteredAnswerIndex(int enteredAnswerIndex) {
+        this.enteredAnswerIndex = enteredAnswerIndex;
     }
 }
