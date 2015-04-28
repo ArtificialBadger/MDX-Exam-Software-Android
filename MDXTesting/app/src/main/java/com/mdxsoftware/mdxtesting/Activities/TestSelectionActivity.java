@@ -65,8 +65,6 @@ public class TestSelectionActivity extends Activity{
         Date to = new Date(from.getTime() + 3600000l);
 
         ArrayList<Exam> exams = new ArrayList<Exam>();
-        exams.add(new Exam("FirstExam", "FE-GUID", questionList, from, to));
-        exams.add(new Exam("SecondExam", "SE-GUID", questionList, from, to));
         exams.add(new Exam("Astronomy", "A-GUID", questionList, from, to));
         exams.add(new Exam("Fitness", "F-GUID", questionList, from, to));
         exams.add(new Exam("Math Easy", "ME-GUID", questionList, from, to));

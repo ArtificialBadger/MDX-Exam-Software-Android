@@ -1,6 +1,7 @@
 package com.mdxsoftware.mdxtesting.Adapters;
 
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,6 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.mdxsoftware.mdxtesting.DataModel.Exam;
-import com.mdxsoftware.mdxtesting.DataModel.Team;
 import com.mdxsoftware.mdxtesting.R;
 
 /**
@@ -49,6 +49,7 @@ public class TestAdapter extends BaseAdapter {
             textView.setTextAppearance(this.context, R.style.MDXTextView);
             textView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             textView.setPadding(8, 32, 8, 32);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 32);
             textView.setGravity(Gravity.CENTER);
             textView.setBackgroundResource(R.drawable.rounded_corners_button);
             textView.setTextColor(context.getResources().getColor(R.color.black));

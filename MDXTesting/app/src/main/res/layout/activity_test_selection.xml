@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:id="@+id/test_grid_view"
         android:gravity="center"
-        android:columnWidth="200dp"
+        android:columnWidth="300dp"
         android:horizontalSpacing="32dp"
         android:verticalSpacing="32dp"
         android:numColumns="auto_fit"/>

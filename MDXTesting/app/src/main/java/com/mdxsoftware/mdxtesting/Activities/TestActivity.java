@@ -71,6 +71,8 @@ public class TestActivity extends Activity implements QuestionFragment.OnFragmen
         this.questionListView.setAdapter(new QuestionAdapter(exam.getQuestionList()));
         this.questionListView.setOnItemClickListener(this);
 
+        //this.questionListView.setSelection(0);
+
         setUpTimeRemainingTextView();
     }
 
