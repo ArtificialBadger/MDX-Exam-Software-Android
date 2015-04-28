@@ -19,12 +19,15 @@ public class Exam implements Serializable{
 
     private Date validTo;
 
-    public Exam(String examTitle, String examID, List<Question> questionList, Date validFrom, Date validTo) {
+    private long testDuration;
+
+    public Exam(String examTitle, String examID, List<Question> questionList, Date validFrom, Date validTo, long testDuration) {
         this.examTitle = examTitle;
         this.examID = examID;
         this.questionList = questionList;
         this.validFrom = validFrom;
         this.validTo = validTo;
+        this.testDuration = testDuration;
     }
 
     public String getExamTitle() {
@@ -65,5 +68,13 @@ public class Exam implements Serializable{
 
     public void setValidTo(Date validTo) {
         this.validTo = validTo;
+    }
+
+    public long getTestDuration() {
+        return testDuration;
+    }
+
+    public void setTestDuration(long testDuration) {
+        this.testDuration = testDuration;
     }
 }

@@ -1,7 +1,9 @@
 package com.mdxsoftware.mdxtesting.Activities;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -17,6 +19,9 @@ import com.mdxsoftware.mdxtesting.DataModel.ShortAnswerQuestion;
 import com.mdxsoftware.mdxtesting.DataModel.Team;
 import com.mdxsoftware.mdxtesting.Dialogs.SelectTeamDialogFragment;
 import com.mdxsoftware.mdxtesting.R;
+
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -61,21 +66,22 @@ public class TestSelectionActivity extends Activity{
         questionList.add(new ShortAnswerQuestion("This is a short answer question?", "This is the suggested answer for the short answer question."));
         questionList.add(new ShortAnswerQuestion("Compare and contrast the Clenshaw-Curtis and Gaussian quadratures", "Gaussian quadrature will most likely provide a more accurate result, but requires finding the kth root of a Legendre polynomial which is not feasible in all cases."));
 
+        long duration = 3600000l;
         Date from = Calendar.getInstance().getTime();
-        Date to = new Date(from.getTime() + 3600000l);
+        Date to = new Date(from.getTime() + duration);
 
         ArrayList<Exam> exams = new ArrayList<Exam>();
-        exams.add(new Exam("Astronomy", "A-GUID", questionList, from, to));
-        exams.add(new Exam("Fitness", "F-GUID", questionList, from, to));
-        exams.add(new Exam("Math Easy", "ME-GUID", questionList, from, to));
-        exams.add(new Exam("Math Hard", "MH-GUID", questionList, from, to));
-        exams.add(new Exam("Boomilever", "B-GUID", questionList, from, to));
-        exams.add(new Exam("Code Busters", "CB-GUID", questionList, from, to));
-        exams.add(new Exam("Metal Quiz", "MQ-GUID", questionList, from, to));
+        exams.add(new Exam("Astronomy", "A-GUID", questionList, from, to, duration));
+        exams.add(new Exam("Fitness", "F-GUID", questionList, from, to, duration));
+        exams.add(new Exam("Math Easy", "ME-GUID", questionList, from, to, duration));
+        exams.add(new Exam("Math Hard", "MH-GUID", questionList, from, to, duration));
+        exams.add(new Exam("Boomilever", "B-GUID", questionList, from, to, duration));
+        exams.add(new Exam("Code Busters", "CB-GUID", questionList, from, to, duration));
+        exams.add(new Exam("Metal Quiz", "MQ-GUID", questionList, from, to, duration));
 
         // Setting the GridView, giving it an adapter, and setting the onClick of the adapter
         this.testsGridView = (GridView) findViewById(R.id.test_grid_view);
-        this.testsGridView.setAdapter(new TestAdapter(this, exams.toArray(new Exam[exams.size()])));
+        this.testsGridView.setAdapter(new TestAdapter(this, exams));
         this.testsGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -90,13 +96,48 @@ public class TestSelectionActivity extends Activity{
             }
         });
 
+        new HttpRequestTask().execute();
+
     }
+
+    //TODO When QR code is scanned, call the endpoint with the GUID and IP address, then populate the GridView
 
     /**
      * So that the user cannot back out of the activity
      */
     @Override
     public void onBackPressed() {
-        Toast.makeText(this, "Back was pressed", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Back was pressed", Toast.LENGTH_SHORT).show();
+        new HttpRequestTask().execute();
+    }
+
+    private void examReceived(Exam exam) {
+        List<Exam> examList = new ArrayList<Exam>();
+        examList.add(exam);
+        ((TestAdapter) this.testsGridView.getAdapter()).updateExams(new ArrayList<Exam>());
+    }
+
+    private class HttpRequestTask extends AsyncTask<Void, Void, Exam> {
+        @Override
+        protected Exam doInBackground(Void... params) {
+            try {
+                final String extension = String.format("%s/%s", "ExamRetrieval", Constants.TEST_EXAM_GUID);
+                final String url = String.format(Constants.BASE_URL, "192.168.1.181", extension);
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                Exam exam = restTemplate.getForObject(url, Exam.class);
+                return exam;
+            } catch (Exception e) {
+                Log.e(this.getClass().getSimpleName(), e.getMessage(), e);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Exam exam) {
+            examReceived(exam);
+        }
+
     }
 }

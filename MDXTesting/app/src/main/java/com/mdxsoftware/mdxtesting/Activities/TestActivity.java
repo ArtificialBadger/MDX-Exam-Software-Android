@@ -2,8 +2,10 @@ package com.mdxsoftware.mdxtesting.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -71,7 +73,12 @@ public class TestActivity extends Activity implements QuestionFragment.OnFragmen
         this.questionListView.setAdapter(new QuestionAdapter(exam.getQuestionList()));
         this.questionListView.setOnItemClickListener(this);
 
-        //this.questionListView.setSelection(0);
+        questionListView.requestFocusFromTouch();
+        questionListView.setSelection(0);
+        questionListView.performItemClick(
+                questionListView.getChildAt(0),
+                0,
+                questionListView.getAdapter().getItemId(0));
 
         setUpTimeRemainingTextView();
     }
@@ -141,4 +148,27 @@ public class TestActivity extends Activity implements QuestionFragment.OnFragmen
                 break;
         }
     }
+
+//    private class HttpRequestTask extends AsyncTask<Void, Void, TestObject> {
+//        @Override
+//        protected TestObject doInBackground(Void... params) {
+//            try {
+//                final String url = "https://ianofferdahl.com:9797/Response";
+//                RestTemplate restTemplate = new RestTemplate();
+//                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+//                TestObject testObject = restTemplate.getForObject(url, TestObject.class);
+//                return testObject;
+//            } catch (Exception e) {
+//                Log.e("MainActivity", e.getMessage(), e);
+//            }
+//
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(TestObject testObject) {
+//            testObjectReceived(testObject);
+//        }
+//
+//    }
 }
