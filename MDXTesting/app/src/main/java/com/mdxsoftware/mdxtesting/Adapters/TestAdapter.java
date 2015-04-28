@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.mdxsoftware.mdxtesting.DataModel.Exam;
 import com.mdxsoftware.mdxtesting.R;
 
+import java.util.List;
+
 /**
  * Created by Isaac on 4/7/2015.
  */
@@ -19,21 +21,21 @@ public class TestAdapter extends BaseAdapter {
 
     private Context context;
 
-    private Exam[] exams;
+    private List<Exam> exams;
 
-    public TestAdapter(Context context, Exam[] exams) {
+    public TestAdapter(Context context, List<Exam> exams) {
         this.context = context;
         this.exams = exams;
     }
 
     @Override
     public int getCount() {
-        return this.exams.length;
+        return this.exams.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return exams[position];
+        return exams.get(position);
     }
 
     @Override
@@ -57,7 +59,13 @@ public class TestAdapter extends BaseAdapter {
             textView = (TextView) convertView;
         }
 
-        textView.setText(exams[position].getExamTitle());
+        textView.setText(exams.get(position).getExamTitle());
         return textView;
+    }
+
+    public void updateExams(List<Exam> exams) {
+        this.exams.clear();
+        this.exams.addAll(exams);
+        this.notifyDataSetChanged();
     }
 }
