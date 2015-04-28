@@ -65,7 +65,7 @@ public class TestActivity extends Activity implements QuestionFragment.OnFragmen
         this.exam = (Exam) intent.getSerializableExtra(Constants.EXAM_EXTRA_TAG);
         this.team = (Team) intent.getSerializableExtra(Constants.TEAM_EXTRA_TAG);
 
-        this.examTextView.setText("Exam: " + this.exam.getExamTitle());
+        this.examTextView.setText("\tExam: " + this.exam.getExamTitle());
         this.teamTextView.setText("Team: " + this.team.getTeamName());
 
         this.questionListView.setAdapter(new QuestionAdapter(exam.getQuestionList()));

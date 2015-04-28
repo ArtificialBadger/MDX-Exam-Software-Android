@@ -62,7 +62,7 @@ public class TestSelectionActivity extends Activity{
         questionList.add(new ShortAnswerQuestion("Compare and contrast the Clenshaw-Curtis and Gaussian quadratures", "Gaussian quadrature will most likely provide a more accurate result, but requires finding the kth root of a Legendre polynomial which is not feasible in all cases."));
 
         Date from = Calendar.getInstance().getTime();
-        Date to = new Date(from.getTime() + 600000l);
+        Date to = new Date(from.getTime() + 3600000l);
 
         ArrayList<Exam> exams = new ArrayList<Exam>();
         exams.add(new Exam("FirstExam", "FE-GUID", questionList, from, to));
@@ -83,7 +83,7 @@ public class TestSelectionActivity extends Activity{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 // Temporary Info until the webservice is set up
-                Team[] teams = {new Team("TEAM 1", 1), new Team("Team 2", 2), new Team("Team 3", 3)};
+                Team[] teams = {new Team("Menomonie", 1), new Team("Wausau West", 2), new Team("Boyceville Blue", 3), new Team("Wausau East", 12)};
 
                 // Creates a dialog fragment, that will have the user pick their team and open the test activity
                 SelectTeamDialogFragment selectTeamDialogFragment = new SelectTeamDialogFragment();
