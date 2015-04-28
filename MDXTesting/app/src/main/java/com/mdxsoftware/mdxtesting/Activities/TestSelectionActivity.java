@@ -13,6 +13,7 @@ import com.mdxsoftware.mdxtesting.Constants;
 import com.mdxsoftware.mdxtesting.DataModel.Exam;
 import com.mdxsoftware.mdxtesting.DataModel.MultipleChoiceQuestion;
 import com.mdxsoftware.mdxtesting.DataModel.Question;
+import com.mdxsoftware.mdxtesting.DataModel.ShortAnswerQuestion;
 import com.mdxsoftware.mdxtesting.DataModel.Team;
 import com.mdxsoftware.mdxtesting.Dialogs.SelectTeamDialogFragment;
 import com.mdxsoftware.mdxtesting.R;
@@ -21,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Activity for the user to select what test they want to take
@@ -58,6 +58,8 @@ public class TestSelectionActivity extends Activity{
         questionList.add(new MultipleChoiceQuestion("Question 1", answers, 0));
         questionList.add(new MultipleChoiceQuestion("This is Question 2", answers, 2));
         questionList.add(new MultipleChoiceQuestion("This is the third and final question", answers, 4));
+        questionList.add(new ShortAnswerQuestion("This is a short answer question?", "This is the suggested answer for the short answer question."));
+        questionList.add(new ShortAnswerQuestion("Compare and contrast the Clenshaw-Curtis and Gaussian quadratures", "Gaussian quadrature will most likely provide a more accurate result, but requires finding the kth root of a Legendre polynomial which is not feasible in all cases."));
 
         Date from = Calendar.getInstance().getTime();
         Date to = new Date(from.getTime() + 600000l);

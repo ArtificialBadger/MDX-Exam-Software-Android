@@ -4,6 +4,7 @@
 
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="light_gray">#CCCCCC</color>
 
     <color name="mdx_red">#d11141</color>
     <color name="mdx_green">#00b159</color>

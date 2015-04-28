@@ -24,6 +24,10 @@
         <item name="android:textSize">32sp</item>
     </style>
 
+    <style name="MDXEditText">
+        <item name="android:background">@drawable/edit_text_background</item>
+    </style>
+
     <style name="MDXTextView">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/black</item>

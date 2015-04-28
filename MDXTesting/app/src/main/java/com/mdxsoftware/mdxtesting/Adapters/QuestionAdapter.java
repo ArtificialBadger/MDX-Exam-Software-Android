@@ -5,14 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.mdxsoftware.mdxtesting.DataModel.MatchingQuestion;
 import com.mdxsoftware.mdxtesting.DataModel.MultipleChoiceQuestion;
 import com.mdxsoftware.mdxtesting.DataModel.Question;
 import com.mdxsoftware.mdxtesting.DataModel.QuestionType;
+import com.mdxsoftware.mdxtesting.DataModel.ShortAnswerQuestion;
 import com.mdxsoftware.mdxtesting.R;
 
 import java.util.List;
@@ -67,6 +66,9 @@ public class QuestionAdapter extends BaseAdapter {
 
         } else if (question.getType() == QuestionType.MultipleChoice) {
             textView.setText(((MultipleChoiceQuestion) question).getQuestion());
+
+        } else if (question.getType() == QuestionType.ShortAnswer) {
+            textView.setText(((ShortAnswerQuestion) question).getQuestion());
 
         } else {
             textView.setText("Unknown Question type");
