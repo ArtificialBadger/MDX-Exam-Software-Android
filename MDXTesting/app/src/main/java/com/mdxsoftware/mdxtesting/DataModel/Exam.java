@@ -1,6 +1,11 @@
 package com.mdxsoftware.mdxtesting.DataModel;
 
+import com.mdxsoftware.mdxtesting.DataModel.ResponseObjects.ExamResponse;
+import com.mdxsoftware.mdxtesting.DataModel.ResponseObjects.MultipleChoiceQuestionResponse;
+import com.mdxsoftware.mdxtesting.DataModel.ResponseObjects.ShortAnswerQuestionResponse;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +25,26 @@ public class Exam implements Serializable{
     private Date validTo;
 
     private long testDuration;
+
+    public Exam(ExamResponse examResponse)
+    {
+        List<Question> questions = new ArrayList<Question>();
+
+        for (MultipleChoiceQuestionResponse multipleChoiceQuestionResponse : examResponse.getMultipleChoiceQuestions())
+        {
+            questions.add(new MultipleChoiceQuestion(multipleChoiceQuestionResponse));
+        }
+
+        for (ShortAnswerQuestionResponse shortAnswerQuestionResponse : examResponse.getShortAnswerQuestions())
+        {
+            questions.add(new ShortAnswerQuestion(shortAnswerQuestionResponse));
+        }
+
+        this.examTitle = examResponse.getExamTitle();
+        this.examID = examResponse.getExamGuid();
+        this.testDuration = examResponse.getTestDuration();
+    }
+
 
     public Exam(String examTitle, String examID, List<Question> questionList, Date validFrom, Date validTo, long testDuration) {
         this.examTitle = examTitle;

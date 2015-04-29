@@ -1,5 +1,7 @@
 package com.mdxsoftware.mdxtesting.DataModel;
 
+import com.mdxsoftware.mdxtesting.DataModel.ResponseObjects.MultipleChoiceQuestionResponse;
+
 import java.util.List;
 
 /**
@@ -11,15 +13,23 @@ public class MultipleChoiceQuestion extends Question {
 
     private List<String> answers;
 
-    private int correctAnswerIndex;
+    private String correctAnswer;
 
     private int enteredAnswerIndex;
 
-    public MultipleChoiceQuestion(String question, List<String> answers, int correctAnswerIndex) {
+    public MultipleChoiceQuestion(MultipleChoiceQuestionResponse multipleChoiceQuestionResponse) {
+        this.type = QuestionType.MultipleChoice;
+        this.question = multipleChoiceQuestionResponse.getQuestion();
+        this.answers = multipleChoiceQuestionResponse.getOptions();
+        this.correctAnswer = multipleChoiceQuestionResponse.getSuggestedAnswer();
+        this.enteredAnswerIndex = -1;
+    }
+
+    public MultipleChoiceQuestion(String question, List<String> answers, String correctAnswerIndex) {
         this.type = QuestionType.MultipleChoice;
         this.question = question;
         this.answers = answers;
-        this.correctAnswerIndex = correctAnswerIndex;
+        this.correctAnswer = correctAnswerIndex;
         this.enteredAnswerIndex = -1;
     }
 
@@ -31,8 +41,8 @@ public class MultipleChoiceQuestion extends Question {
         return answers;
     }
 
-    public int getCorrectAnswerIndex() {
-        return correctAnswerIndex;
+    public String getCorrectAnswer() {
+        return correctAnswer;
     }
 
     public int getEnteredAnswerIndex() {

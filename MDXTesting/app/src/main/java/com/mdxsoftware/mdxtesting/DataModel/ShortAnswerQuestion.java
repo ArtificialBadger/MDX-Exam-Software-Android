@@ -1,5 +1,7 @@
 package com.mdxsoftware.mdxtesting.DataModel;
 
+import com.mdxsoftware.mdxtesting.DataModel.ResponseObjects.ShortAnswerQuestionResponse;
+
 /**
  * Created by Isaac on 4/7/2015.
  */
@@ -10,6 +12,14 @@ public class ShortAnswerQuestion extends Question {
     private String sampleAnswer;
 
     private String enteredAnswer;
+
+    public ShortAnswerQuestion(ShortAnswerQuestionResponse shortAnswerQuestionResponse)
+    {
+        this.type = QuestionType.ShortAnswer;
+        this.question = shortAnswerQuestionResponse.getQuestion();
+        this.sampleAnswer = shortAnswerQuestionResponse.getAnswer();
+    }
+
 
     public ShortAnswerQuestion(String question, String sampleAnswer) {
         this.type = QuestionType.ShortAnswer;

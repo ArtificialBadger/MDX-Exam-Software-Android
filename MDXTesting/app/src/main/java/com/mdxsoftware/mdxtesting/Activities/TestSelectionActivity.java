@@ -15,6 +15,7 @@ import com.mdxsoftware.mdxtesting.Constants;
 import com.mdxsoftware.mdxtesting.DataModel.Exam;
 import com.mdxsoftware.mdxtesting.DataModel.MultipleChoiceQuestion;
 import com.mdxsoftware.mdxtesting.DataModel.Question;
+import com.mdxsoftware.mdxtesting.DataModel.ResponseObjects.ExamResponse;
 import com.mdxsoftware.mdxtesting.DataModel.ShortAnswerQuestion;
 import com.mdxsoftware.mdxtesting.DataModel.Team;
 import com.mdxsoftware.mdxtesting.Dialogs.SelectTeamDialogFragment;
@@ -60,9 +61,9 @@ public class TestSelectionActivity extends Activity{
 //        questionList.add(new MultipleChoiceQuestion("Who wrote the song \"Pittsburgh\"?", answers, 0));
 //        questionList.add(new MultipleChoiceQuestion("Oliver Sykes is the lead singer for which band?", answers, 2));
 //        questionList.add(new MultipleChoiceQuestion("The lead singer of which band partnered with Kellin Quinn to make \"King for a Day\"?", answers, 4));
-        questionList.add(new MultipleChoiceQuestion("Question 1", answers, 0));
-        questionList.add(new MultipleChoiceQuestion("This is Question 2", answers, 2));
-        questionList.add(new MultipleChoiceQuestion("This is the third and final question", answers, 4));
+        questionList.add(new MultipleChoiceQuestion("Question 1", answers, ""));
+        questionList.add(new MultipleChoiceQuestion("This is Question 2", answers, ""));
+        questionList.add(new MultipleChoiceQuestion("This is the third and final question", answers, ""));
         questionList.add(new ShortAnswerQuestion("This is a short answer question?", "This is the suggested answer for the short answer question."));
         questionList.add(new ShortAnswerQuestion("Compare and contrast the Clenshaw-Curtis and Gaussian quadratures", "Gaussian quadrature will most likely provide a more accurate result, but requires finding the kth root of a Legendre polynomial which is not feasible in all cases."));
 
@@ -111,22 +112,22 @@ public class TestSelectionActivity extends Activity{
         new HttpRequestTask().execute();
     }
 
-    private void examReceived(Exam exam) {
+    private void examResponseReceived(ExamResponse examResponse) {
         List<Exam> examList = new ArrayList<Exam>();
-        examList.add(exam);
-        ((TestAdapter) this.testsGridView.getAdapter()).updateExams(new ArrayList<Exam>());
+        examList.add(new Exam(examResponse));
+        ((TestAdapter) this.testsGridView.getAdapter()).updateExams(examList);
     }
 
-    private class HttpRequestTask extends AsyncTask<Void, Void, Exam> {
+    private class HttpRequestTask extends AsyncTask<Void, Void, ExamResponse> {
         @Override
-        protected Exam doInBackground(Void... params) {
+        protected ExamResponse doInBackground(Void... params) {
             try {
                 final String extension = String.format("%s/%s", "ExamRetrieval", Constants.TEST_EXAM_GUID);
                 final String url = String.format(Constants.BASE_URL, "192.168.1.181", extension);
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                Exam exam = restTemplate.getForObject(url, Exam.class);
-                return exam;
+                ExamResponse examResponse = restTemplate.getForObject(url, ExamResponse.class);
+                return examResponse;
             } catch (Exception e) {
                 Log.e(this.getClass().getSimpleName(), e.getMessage(), e);
             }
@@ -135,8 +136,8 @@ public class TestSelectionActivity extends Activity{
         }
 
         @Override
-        protected void onPostExecute(Exam exam) {
-            examReceived(exam);
+        protected void onPostExecute(ExamResponse examResponse) {
+            examResponseReceived(examResponse);
         }
 
     }
