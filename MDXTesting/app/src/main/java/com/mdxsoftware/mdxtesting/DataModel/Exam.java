@@ -28,21 +28,22 @@ public class Exam implements Serializable{
 
     public Exam(ExamResponse examResponse)
     {
-        List<Question> questions = new ArrayList<Question>();
+        if (examResponse != null) {
+            List<Question> questions = new ArrayList<Question>();
 
-        for (MultipleChoiceQuestionResponse multipleChoiceQuestionResponse : examResponse.getMultipleChoiceQuestions())
-        {
-            questions.add(new MultipleChoiceQuestion(multipleChoiceQuestionResponse));
+
+            for (MultipleChoiceQuestionResponse multipleChoiceQuestionResponse : examResponse.getMultipleChoiceQuestions()) {
+                questions.add(new MultipleChoiceQuestion(multipleChoiceQuestionResponse));
+            }
+
+            for (ShortAnswerQuestionResponse shortAnswerQuestionResponse : examResponse.getShortAnswerQuestions()) {
+                questions.add(new ShortAnswerQuestion(shortAnswerQuestionResponse));
+            }
+
+            this.examTitle = examResponse.getExamTitle();
+            this.examID = examResponse.getExamGuid();
+            this.testDuration = examResponse.getTestDuration();
         }
-
-        for (ShortAnswerQuestionResponse shortAnswerQuestionResponse : examResponse.getShortAnswerQuestions())
-        {
-            questions.add(new ShortAnswerQuestion(shortAnswerQuestionResponse));
-        }
-
-        this.examTitle = examResponse.getExamTitle();
-        this.examID = examResponse.getExamGuid();
-        this.testDuration = examResponse.getTestDuration();
     }
 
 

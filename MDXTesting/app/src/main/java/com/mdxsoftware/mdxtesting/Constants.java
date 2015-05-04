@@ -6,6 +6,20 @@ package com.mdxsoftware.mdxtesting;
 public class Constants {
 
     /**
+     * Human Readable Versions of the Question Types
+     */
+
+    public static final String MULTIPLE_CHOICE = "Multiple Choice";
+
+    public static final String SHORT_ANSWER = "Short Answer";
+
+    public static final String MATCHING = "Matching";
+
+    public static final String ALL_THAT_APPLY = "All That Apply";
+
+    public static final String UNKNOWN_QUESTION_TYPE = "Unknown Question Type";
+
+    /**
      *  Tags for Dialogs
     **/
 
@@ -25,5 +39,6 @@ public class Constants {
     // Base URL for endpoint communication
     public static final String BASE_URL = "http://%s:3579/MDX/%s";
 
-    public static final String TEST_EXAM_GUID = "40f0365b-8662-4cf1-bb1e-ac42c6b8f24d";
+    // Extention on the Base Url when requesting an Exam from the server
+    public static final String EXAM_RETRIEVAL_EXTENSION = "ExamRetrieval";
 }

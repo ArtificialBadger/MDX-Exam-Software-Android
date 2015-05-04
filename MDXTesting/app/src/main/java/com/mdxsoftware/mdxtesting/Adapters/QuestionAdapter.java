@@ -7,11 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.mdxsoftware.mdxtesting.DataModel.MatchingQuestion;
-import com.mdxsoftware.mdxtesting.DataModel.MultipleChoiceQuestion;
+import com.mdxsoftware.mdxtesting.Constants;
 import com.mdxsoftware.mdxtesting.DataModel.Question;
 import com.mdxsoftware.mdxtesting.DataModel.QuestionType;
-import com.mdxsoftware.mdxtesting.DataModel.ShortAnswerQuestion;
 import com.mdxsoftware.mdxtesting.R;
 
 import java.util.List;
@@ -23,8 +21,7 @@ public class QuestionAdapter extends BaseAdapter {
 
     private List<Question> questionList;
 
-    public QuestionAdapter(List<Question> questionList)
-    {
+    public QuestionAdapter(List<Question> questionList) {
         super();
         this.questionList = questionList;
     }
@@ -56,22 +53,24 @@ public class QuestionAdapter extends BaseAdapter {
         } else {
             rowView = convertView;
         }
-        TextView textView = (TextView) rowView.findViewById(R.id.question_title_text_view);
+        TextView idTextView = (TextView) rowView.findViewById(R.id.question_id_text_view);
+        TextView typeTextView = (TextView) rowView.findViewById(R.id.question_type_text_view);
 
         Question question = questionList.get(position);
 
-        if (question.getType() == QuestionType.Matching)
-        {
-            textView.setText(((MatchingQuestion) question).getQuestion());
+        idTextView.setText("Question " + (position+1) );
+
+        if (question.getType() == QuestionType.Matching) {
+            typeTextView.setText(Constants.MATCHING);
 
         } else if (question.getType() == QuestionType.MultipleChoice) {
-            textView.setText(((MultipleChoiceQuestion) question).getQuestion());
+            typeTextView.setText(Constants.MULTIPLE_CHOICE);
 
         } else if (question.getType() == QuestionType.ShortAnswer) {
-            textView.setText(((ShortAnswerQuestion) question).getQuestion());
+            typeTextView.setText(Constants.SHORT_ANSWER);
 
         } else {
-            textView.setText("Unknown Question type");
+            typeTextView.setText(Constants.UNKNOWN_QUESTION_TYPE);
 
         }
 

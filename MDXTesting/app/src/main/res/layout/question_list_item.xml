@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:gravity="center">
 
     <TextView
+        android:id="@+id/question_id_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/question_title_text_view"
+        android:gravity="center_horizontal|bottom"
         style="@style/MDXTextView"/>
+
+    <TextView
+        android:id="@+id/question_type_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|top"
+        style="@style/MDXTextView"
+        android:paddingTop="0dp"/>
 
 </LinearLayout>

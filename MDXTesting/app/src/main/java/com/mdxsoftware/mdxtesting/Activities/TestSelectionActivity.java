@@ -1,15 +1,21 @@
 package com.mdxsoftware.mdxtesting.Activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.mdxsoftware.mdxtesting.Adapters.TestAdapter;
 import com.mdxsoftware.mdxtesting.Constants;
 import com.mdxsoftware.mdxtesting.DataModel.Exam;
@@ -32,7 +38,7 @@ import java.util.List;
 /**
  * Activity for the user to select what test they want to take
  */
-public class TestSelectionActivity extends Activity{
+public class TestSelectionActivity extends Activity {
 
     // The girdView with each item representing a test
     private GridView testsGridView;
@@ -40,6 +46,7 @@ public class TestSelectionActivity extends Activity{
     /**
      * Called by the OS when the activity is first started
      * Does some basic setup of the gridView
+     *
      * @param savedInstanceState
      */
     @Override
@@ -58,9 +65,6 @@ public class TestSelectionActivity extends Activity{
         answers.add("Pierce the Veil");
 
         List<Question> questionList = new ArrayList<Question>();
-//        questionList.add(new MultipleChoiceQuestion("Who wrote the song \"Pittsburgh\"?", answers, 0));
-//        questionList.add(new MultipleChoiceQuestion("Oliver Sykes is the lead singer for which band?", answers, 2));
-//        questionList.add(new MultipleChoiceQuestion("The lead singer of which band partnered with Kellin Quinn to make \"King for a Day\"?", answers, 4));
         questionList.add(new MultipleChoiceQuestion("Question 1", answers, ""));
         questionList.add(new MultipleChoiceQuestion("This is Question 2", answers, ""));
         questionList.add(new MultipleChoiceQuestion("This is the third and final question", answers, ""));
@@ -97,8 +101,50 @@ public class TestSelectionActivity extends Activity{
             }
         });
 
-        new HttpRequestTask().execute();
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.test_selection_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.scan_qr_code:
+                this.scanQRCode();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == IntentIntegrator.REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+
+                IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+                Toast.makeText(this, result.getContents(), Toast.LENGTH_SHORT).show();
+                String[] parsedTuringData = result.getContents().split(":");
+                new TestRequestTask().execute(parsedTuringData);
+
+            } else if (resultCode == RESULT_CANCELED) {
+
+                Toast.makeText(this, "QR Scanning cancelled", Toast.LENGTH_SHORT).show();
+
+            }
+        }
+    }
+
+    public void scanQRCode() {
+        IntentIntegrator integrator = new IntentIntegrator(this);
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+        integrator.setPrompt("Scan a Turing generated QR Code");
+        integrator.initiateScan();
     }
 
     //TODO When QR code is scanned, call the endpoint with the GUID and IP address, then populate the GridView
@@ -108,8 +154,7 @@ public class TestSelectionActivity extends Activity{
      */
     @Override
     public void onBackPressed() {
-        //Toast.makeText(this, "Back was pressed", Toast.LENGTH_SHORT).show();
-        new HttpRequestTask().execute();
+        Toast.makeText(this, "Back was pressed", Toast.LENGTH_SHORT).show();
     }
 
     private void examResponseReceived(ExamResponse examResponse) {
@@ -118,16 +163,29 @@ public class TestSelectionActivity extends Activity{
         ((TestAdapter) this.testsGridView.getAdapter()).updateExams(examList);
     }
 
-    private class HttpRequestTask extends AsyncTask<Void, Void, ExamResponse> {
+    private class TestRequestTask extends AsyncTask<String, Void, ExamResponse> {
         @Override
-        protected ExamResponse doInBackground(Void... params) {
+        protected ExamResponse doInBackground(String... params) {
             try {
-                final String extension = String.format("%s/%s", "ExamRetrieval", Constants.TEST_EXAM_GUID);
-                final String url = String.format(Constants.BASE_URL, "192.168.1.181", extension);
+                String extension, url;
+                String ipAddress, examGuid;
+                if (params.length >= 2) {
+                    ipAddress = params[0];
+                    examGuid = params[1];
+                } else {
+                    Log.e(this.getClass().getSimpleName(), "IP and ExamGuid are not present, unable to complete request");
+                    return null;
+                }
+
+                extension = String.format("%s/%s", Constants.EXAM_RETRIEVAL_EXTENSION, examGuid);
+                url = String.format(Constants.BASE_URL, ipAddress, extension);
+
+                Log.i(this.getClass().getSimpleName(), "About to request Test from " + url);
+
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                ExamResponse examResponse = restTemplate.getForObject(url, ExamResponse.class);
-                return examResponse;
+                return restTemplate.getForObject(url, ExamResponse.class);
+
             } catch (Exception e) {
                 Log.e(this.getClass().getSimpleName(), e.getMessage(), e);
             }
@@ -137,7 +195,11 @@ public class TestSelectionActivity extends Activity{
 
         @Override
         protected void onPostExecute(ExamResponse examResponse) {
-            examResponseReceived(examResponse);
+            if (examResponse != null) {
+                examResponseReceived(examResponse);
+            } else {
+                Log.e(this.getClass().getSimpleName(), "No ExamResponse object received from endpoint");
+            }
         }
 
     }

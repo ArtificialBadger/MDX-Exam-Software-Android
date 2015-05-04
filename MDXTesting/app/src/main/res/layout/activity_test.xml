@@ -1,89 +1,49 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mdx_blue"
-    tools:context=".TestSelectionActivity"
-    android:orientation="vertical"
+    android:gravity="center"
+    android:orientation="horizontal"
     android:padding="16dp"
-    android:gravity="center">
+    tools:context=".TestSelectionActivity">
 
     <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:baselineAligned="true"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="9"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <ListView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
             android:id="@+id/question_list_view"
-            android:background="@drawable/rounded_corners_white_large"/>
-
-        <FrameLayout
-            android:id="@+id/question_frame"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:padding="8dp"
-            android:layout_width="0dp"
-            android:layout_weight="3"
-            android:layout_height="match_parent"
-            android:background="@drawable/rounded_corners_white_large">
-
-        </FrameLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="16dp">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_weight="6"
-            android:layout_height="match_parent"
-            android:background="@drawable/rounded_corners_white_large">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:id="@+id/team_text_view"
-                style="@style/MDXTextView.Large"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:id="@+id/exam_text_view"
-                style="@style/MDXTextView.Large"/>
-
-
-        </LinearLayout>
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="7"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rounded_corners_white_large" />
 
         <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:padding="8dp"
-                android:textSize="30sp"
-                android:gravity="center"
-                android:id="@+id/time_remaining_text_view"
-                android:background="@drawable/rounded_corners_white_large"/>
-
-
-
+            android:id="@+id/time_remaining_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_corners_white_large"
+            android:gravity="center"
+            android:padding="8dp"
+            android:textSize="30sp" />
 
     </LinearLayout>
 
-
+    <FrameLayout
+        android:id="@+id/question_frame"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_weight="7"
+        android:background="@drawable/rounded_corners_white_large"
+        android:padding="8dp" />
 
 
 </LinearLayout>

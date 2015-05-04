@@ -2,10 +2,8 @@ package com.mdxsoftware.mdxtesting.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -45,9 +43,6 @@ public class TestActivity extends Activity implements QuestionFragment.OnFragmen
     // The TextView notifying the user how much time they have left on their exam
     private TextView timeRemainingTextView;
 
-    private TextView examTextView;
-    private TextView teamTextView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,8 +53,6 @@ public class TestActivity extends Activity implements QuestionFragment.OnFragmen
 
         // Sets the views to objects on the screen
         this.questionListView = (ListView) findViewById(R.id.question_list_view);
-        this.teamTextView = (TextView) findViewById(R.id.team_text_view);
-        this.examTextView = (TextView) findViewById(R.id.exam_text_view);
         this.timeRemainingTextView = (TextView) findViewById(R.id.time_remaining_text_view);
 
         // Reads and casts the extras into usable Objects
@@ -67,8 +60,7 @@ public class TestActivity extends Activity implements QuestionFragment.OnFragmen
         this.exam = (Exam) intent.getSerializableExtra(Constants.EXAM_EXTRA_TAG);
         this.team = (Team) intent.getSerializableExtra(Constants.TEAM_EXTRA_TAG);
 
-        this.examTextView.setText("\tExam: " + this.exam.getExamTitle());
-        this.teamTextView.setText("Team: " + this.team.getTeamName());
+        this.getActionBar().setTitle(exam.getExamTitle() + " - " + this.team.getTeamName());
 
         this.questionListView.setAdapter(new QuestionAdapter(exam.getQuestionList()));
         this.questionListView.setOnItemClickListener(this);
@@ -148,27 +140,4 @@ public class TestActivity extends Activity implements QuestionFragment.OnFragmen
                 break;
         }
     }
-
-//    private class HttpRequestTask extends AsyncTask<Void, Void, TestObject> {
-//        @Override
-//        protected TestObject doInBackground(Void... params) {
-//            try {
-//                final String url = "https://ianofferdahl.com:9797/Response";
-//                RestTemplate restTemplate = new RestTemplate();
-//                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-//                TestObject testObject = restTemplate.getForObject(url, TestObject.class);
-//                return testObject;
-//            } catch (Exception e) {
-//                Log.e("MainActivity", e.getMessage(), e);
-//            }
-//
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(TestObject testObject) {
-//            testObjectReceived(testObject);
-//        }
-//
-//    }
 }
