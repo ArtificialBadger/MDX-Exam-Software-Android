@@ -14,8 +14,6 @@ public class ShortAnswerQuestionResponse {
 
     private String QuestionGuid;
 
-    private String Answer;
-
     private QuestionType Type;
 
     public String getQuestion() {
@@ -32,14 +30,6 @@ public class ShortAnswerQuestionResponse {
 
     public void setQuestionGuid(String questionGuid) {
         QuestionGuid = questionGuid;
-    }
-
-    public String getAnswer() {
-        return Answer;
-    }
-
-    public void setAnswer(String answer) {
-        Answer = answer;
     }
 
     public QuestionType getType() {

@@ -23,6 +23,8 @@ public class ExamResponse {
 
     private List<MultipleChoiceQuestionResponse> MultipleChoiceQuestions;
 
+    private List<MatchingQuestionResponse> MatchingQuestions;
+
     public ExamResponse() {}
 
     public String getExamTitle() {
@@ -63,5 +65,13 @@ public class ExamResponse {
 
     public void setMultipleChoiceQuestions(List<MultipleChoiceQuestionResponse> multipleChoiceQuestions) {
         MultipleChoiceQuestions = multipleChoiceQuestions;
+    }
+
+    public List<MatchingQuestionResponse> getMatchingQuestions() {
+        return MatchingQuestions;
+    }
+
+    public void setMatchingQuestions(List<MatchingQuestionResponse> matchingQuestions) {
+        MatchingQuestions = matchingQuestions;
     }
 }

@@ -1,24 +1,24 @@
 package com.mdxsoftware.mdxtesting.DataModel.ResponseObjects;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.mdxsoftware.mdxtesting.DataModel.QuestionType;
 
 import java.util.List;
+import java.util.Map;
 
 /**
- * Created by isaac on 4/28/2015.
+ * Created by isaac on 5/5/2015.
  */
-@JsonNaming(value = PropertyNamingStrategy.PascalCaseStrategy.class)
-public class MultipleChoiceQuestionResponse {
+public class MatchingQuestionResponse {
 
     private String Question;
 
     private String QuestionGuid;
 
-    private List<String> Options;
-
     private QuestionType Type;
+
+    private List<String> Choices;
+
+    private List<String> Answers;
 
     public String getQuestion() {
         return Question;
@@ -36,19 +36,27 @@ public class MultipleChoiceQuestionResponse {
         QuestionGuid = questionGuid;
     }
 
-    public List<String> getOptions() {
-        return Options;
-    }
-
-    public void setOptions(List<String> options) {
-        Options = options;
-    }
-
     public QuestionType getType() {
         return Type;
     }
 
     public void setType(QuestionType type) {
         Type = type;
+    }
+
+    public List<String> getChoices() {
+        return Choices;
+    }
+
+    public void setChoices(List<String> choices) {
+        Choices = choices;
+    }
+
+    public List<String> getAnswers() {
+        return Answers;
+    }
+
+    public void setAnswers(List<String> answers) {
+        Answers = answers;
     }
 }
