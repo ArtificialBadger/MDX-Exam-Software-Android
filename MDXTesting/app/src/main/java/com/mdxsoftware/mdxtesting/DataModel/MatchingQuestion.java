@@ -1,6 +1,6 @@
 package com.mdxsoftware.mdxtesting.DataModel;
 
-import java.util.Map;
+import java.util.LinkedHashMap;
 
 /**
  * Created by Isaac on 4/7/2015.
@@ -9,11 +9,11 @@ public class MatchingQuestion extends Question {
 
     private String question;
 
-    private Map<String, String> pairs;
+    private LinkedHashMap<String, String> pairs;
 
-    private Map<String, String> enteredPairs;
+    private LinkedHashMap<String, String> enteredPairs;
 
-    public MatchingQuestion(String question, Map<String, String> pairs, Map<String, String> enteredPairs) {
+    public MatchingQuestion(String question, LinkedHashMap<String, String> pairs, LinkedHashMap<String, String> enteredPairs) {
         this.type = QuestionType.Matching;
         this.question = question;
         this.pairs = pairs;
@@ -28,19 +28,19 @@ public class MatchingQuestion extends Question {
         this.question = question;
     }
 
-    public Map<String, String> getPairs() {
+    public LinkedHashMap<String, String> getPairs() {
         return pairs;
     }
 
-    public void setPairs(Map<String, String> pairs) {
+    public void setPairs(LinkedHashMap<String, String> pairs) {
         this.pairs = pairs;
     }
 
-    public Map<String, String> getEnteredPairs() {
+    public LinkedHashMap<String, String> getEnteredPairs() {
         return enteredPairs;
     }
 
-    public void setEnteredPairs(Map<String, String> enteredPairs) {
+    public void setEnteredPairs(LinkedHashMap<String, String> enteredPairs) {
         this.enteredPairs = enteredPairs;
     }
 }

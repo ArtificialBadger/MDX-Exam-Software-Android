@@ -21,6 +21,7 @@ import com.mdxsoftware.mdxtesting.R;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Isaac on 5/5/2015.
@@ -87,13 +88,19 @@ public class MatchingFragment extends QuestionFragment{
             // Create a spinner for the user to select an option
             Spinner spinner = new Spinner(getActivity());
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, choices);
-            spinner.setGravity(Gravity.LEFT);
             spinner.setAdapter(adapter);
 
             // If an answer already exists for this option in the entered pairs, prefill it
             if (matchingQuestion.getEnteredPairs().containsKey(shuffledOptions.get(i)))
             {
-                // TODO prefill spinner selection
+                for(Map.Entry<String, String> entry : matchingQuestion.getEnteredPairs().entrySet())
+                {
+                    if (matchingQuestion.getPairs().get(shuffledOptions.get(i)).equals(entry.getValue()))
+                    {
+                        matchingQuestion.getEnteredPairs().get(entry.getKey());
+                        spinner.setSelection(options.indexOf(entry.getKey()) + 1, false);
+                    }
+                }
             }
 
             // The listener for the spinner when a new item is clicked

@@ -34,9 +34,8 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Activity for the user to select what test they want to take
@@ -67,7 +66,7 @@ public class TestSelectionActivity extends Activity {
         answers.add("Of Mice and Men");
         answers.add("Pierce the Veil");
 
-        Map<String, String> map = new HashMap<String, String>();
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
         map.put("Red", "Blue");
         map.put("Steel", "Iron");
         map.put("Android", "iOS");
@@ -80,7 +79,7 @@ public class TestSelectionActivity extends Activity {
         questionList.add(new MultipleChoiceQuestion("This is the third and final question", answers, ""));
         questionList.add(new ShortAnswerQuestion("This is a short answer question?", "This is the suggested answer for the short answer question."));
         questionList.add(new ShortAnswerQuestion("Compare and contrast the Clenshaw-Curtis and Gaussian quadratures", "Gaussian quadrature will most likely provide a more accurate result, but requires finding the kth root of a Legendre polynomial which is not feasible in all cases."));
-        questionList.add(new MatchingQuestion("This is a matching question", map, new HashMap<String, String>()));
+        questionList.add(new MatchingQuestion("This is a matching question", map, new LinkedHashMap<String, String>()));
 
         long duration = 3600000l;
         Date from = Calendar.getInstance().getTime();
