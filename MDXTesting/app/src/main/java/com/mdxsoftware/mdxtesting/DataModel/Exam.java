@@ -6,7 +6,6 @@ import com.mdxsoftware.mdxtesting.DataModel.ResponseObjects.ShortAnswerQuestionR
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,10 +18,6 @@ public class Exam implements Serializable{
     private String examID;
 
     private List<Question> questionList;
-
-    private Date validFrom;
-
-    private Date validTo;
 
     private long testDuration;
 
@@ -46,13 +41,10 @@ public class Exam implements Serializable{
         }
     }
 
-
-    public Exam(String examTitle, String examID, List<Question> questionList, Date validFrom, Date validTo, long testDuration) {
+    public Exam(String examTitle, String examID, List<Question> questionList, long testDuration) {
         this.examTitle = examTitle;
         this.examID = examID;
         this.questionList = questionList;
-        this.validFrom = validFrom;
-        this.validTo = validTo;
         this.testDuration = testDuration;
     }
 
@@ -78,22 +70,6 @@ public class Exam implements Serializable{
 
     public void setQuestionList(List<Question> questionList) {
         this.questionList = questionList;
-    }
-
-    public Date getValidFrom() {
-        return validFrom;
-    }
-
-    public void setValidFrom(Date validFrom) {
-        this.validFrom = validFrom;
-    }
-
-    public Date getValidTo() {
-        return validTo;
-    }
-
-    public void setValidTo(Date validTo) {
-        this.validTo = validTo;
     }
 
     public long getTestDuration() {

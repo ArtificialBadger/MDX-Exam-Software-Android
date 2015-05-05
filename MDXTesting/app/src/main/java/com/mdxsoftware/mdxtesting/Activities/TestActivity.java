@@ -25,7 +25,6 @@ import com.mdxsoftware.mdxtesting.Fragments.QuestionFragments.QuestionFragment;
 import com.mdxsoftware.mdxtesting.Fragments.QuestionFragments.ShortAnswerFragment;
 import com.mdxsoftware.mdxtesting.R;
 
-import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -84,7 +83,7 @@ public class TestActivity extends Activity implements QuestionFragment.OnFragmen
      */
     private void setUpTimeRemainingTextView()
     {
-        new CountDownTimer(exam.getValidTo().getTime() - Calendar.getInstance().getTimeInMillis(), 1000)//exam.getValidTo().getTime(), 1000)
+        new CountDownTimer(exam.getTestDuration(), 1000)
         {
             @Override
             public void onTick(long millisUntilFinished) {

@@ -31,8 +31,6 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -81,17 +79,15 @@ public class TestSelectionActivity extends Activity {
         questionList.add(new MatchingQuestion("This is a matching question", map, new LinkedHashMap<String, String>()));
 
         long duration = 3600000l;
-        Date from = Calendar.getInstance().getTime();
-        Date to = new Date(from.getTime() + duration);
 
         ArrayList<Exam> exams = new ArrayList<Exam>();
-        exams.add(new Exam("Astronomy", "A-GUID", questionList, from, to, duration));
-        exams.add(new Exam("Fitness", "F-GUID", questionList, from, to, duration));
-        exams.add(new Exam("Math Easy", "ME-GUID", questionList, from, to, duration));
-        exams.add(new Exam("Math Hard", "MH-GUID", questionList, from, to, duration));
-        exams.add(new Exam("Boomilever", "B-GUID", questionList, from, to, duration));
-        exams.add(new Exam("Code Busters", "CB-GUID", questionList, from, to, duration));
-        exams.add(new Exam("Metal Quiz", "MQ-GUID", questionList, from, to, duration));
+        exams.add(new Exam("Astronomy", "A-GUID", questionList, duration));
+        exams.add(new Exam("Fitness", "F-GUID", questionList, duration));
+        exams.add(new Exam("Math Easy", "ME-GUID", questionList, duration));
+        exams.add(new Exam("Math Hard", "MH-GUID", questionList, duration));
+        exams.add(new Exam("Boomilever", "B-GUID", questionList, duration));
+        exams.add(new Exam("Code Busters", "CB-GUID", questionList, duration));
+        exams.add(new Exam("Metal Quiz", "MQ-GUID", questionList, duration));
 
         // Setting the GridView, giving it an adapter, and setting the onClick of the adapter
         this.testsGridView = (GridView) findViewById(R.id.test_grid_view);
