@@ -14,10 +14,12 @@ import android.widget.Toast;
 import com.mdxsoftware.mdxtesting.Adapters.QuestionAdapter;
 import com.mdxsoftware.mdxtesting.Constants;
 import com.mdxsoftware.mdxtesting.DataModel.Exam;
+import com.mdxsoftware.mdxtesting.DataModel.MatchingQuestion;
 import com.mdxsoftware.mdxtesting.DataModel.MultipleChoiceQuestion;
 import com.mdxsoftware.mdxtesting.DataModel.Question;
 import com.mdxsoftware.mdxtesting.DataModel.ShortAnswerQuestion;
 import com.mdxsoftware.mdxtesting.DataModel.Team;
+import com.mdxsoftware.mdxtesting.Fragments.QuestionFragments.MatchingFragment;
 import com.mdxsoftware.mdxtesting.Fragments.QuestionFragments.MultipleChoiceFragment;
 import com.mdxsoftware.mdxtesting.Fragments.QuestionFragments.QuestionFragment;
 import com.mdxsoftware.mdxtesting.Fragments.QuestionFragments.ShortAnswerFragment;
@@ -119,6 +121,9 @@ public class TestActivity extends Activity implements QuestionFragment.OnFragmen
             case ShortAnswer:
                 this.getFragmentManager().beginTransaction().replace(R.id.question_frame, ShortAnswerFragment.newInstance(question)).commit();
                 break;
+            case Matching:
+                this.getFragmentManager().beginTransaction().replace(R.id.question_frame, MatchingFragment.newInstance(question)).commit();
+                break;
             default:
                 Toast.makeText(this, question.getType().toString(), Toast.LENGTH_SHORT).show();
                 break;
@@ -135,9 +140,13 @@ public class TestActivity extends Activity implements QuestionFragment.OnFragmen
             case ShortAnswer:
                 Toast.makeText(this, ((ShortAnswerQuestion) question).getEnteredAnswer(), Toast.LENGTH_SHORT).show();
                 break;
+            case Matching:
+                Toast.makeText(this, ((MatchingQuestion) question).getQuestion(), Toast.LENGTH_SHORT).show();
+                break;
             default:
                 Toast.makeText(this, question.getType().toString(), Toast.LENGTH_SHORT).show();
                 break;
         }
     }
+
 }

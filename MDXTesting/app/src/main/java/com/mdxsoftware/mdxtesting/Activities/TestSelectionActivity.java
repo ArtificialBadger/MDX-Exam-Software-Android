@@ -19,6 +19,7 @@ import com.google.zxing.integration.android.IntentResult;
 import com.mdxsoftware.mdxtesting.Adapters.TestAdapter;
 import com.mdxsoftware.mdxtesting.Constants;
 import com.mdxsoftware.mdxtesting.DataModel.Exam;
+import com.mdxsoftware.mdxtesting.DataModel.MatchingQuestion;
 import com.mdxsoftware.mdxtesting.DataModel.MultipleChoiceQuestion;
 import com.mdxsoftware.mdxtesting.DataModel.Question;
 import com.mdxsoftware.mdxtesting.DataModel.ResponseObjects.ExamResponse;
@@ -33,7 +34,9 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Activity for the user to select what test they want to take
@@ -64,12 +67,20 @@ public class TestSelectionActivity extends Activity {
         answers.add("Of Mice and Men");
         answers.add("Pierce the Veil");
 
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("Red", "Blue");
+        map.put("Steel", "Iron");
+        map.put("Android", "iOS");
+        map.put("Ford", "Subaru");
+        map.put("Gauss", "Euler");
+
         List<Question> questionList = new ArrayList<Question>();
         questionList.add(new MultipleChoiceQuestion("Question 1", answers, ""));
         questionList.add(new MultipleChoiceQuestion("This is Question 2", answers, ""));
         questionList.add(new MultipleChoiceQuestion("This is the third and final question", answers, ""));
         questionList.add(new ShortAnswerQuestion("This is a short answer question?", "This is the suggested answer for the short answer question."));
         questionList.add(new ShortAnswerQuestion("Compare and contrast the Clenshaw-Curtis and Gaussian quadratures", "Gaussian quadrature will most likely provide a more accurate result, but requires finding the kth root of a Legendre polynomial which is not feasible in all cases."));
+        questionList.add(new MatchingQuestion("This is a matching question", map, new HashMap<String, String>()));
 
         long duration = 3600000l;
         Date from = Calendar.getInstance().getTime();

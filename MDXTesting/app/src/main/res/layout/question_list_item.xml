@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal|bottom"
-        style="@style/MDXTextView"/>
+        style="@style/MDXTextView"
+        android:padding="4dp"/>
 
     <TextView
         android:id="@+id/question_type_text_view"
@@ -17,6 +18,6 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal|top"
         style="@style/MDXTextView"
-        android:paddingTop="0dp"/>
+        android:padding="4dp"/>
 
 </LinearLayout>
