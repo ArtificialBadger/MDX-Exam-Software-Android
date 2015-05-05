@@ -10,6 +10,11 @@
 
     <string name="answer_hint">Enter answer here</string>
 
+    <!--Team Entry Dialog-->
+    <string name="team_entry_title">Enter your team ID number and team name</string>
+    <string name="team_id">Team ID: </string>
+    <string name="team_name">Team Name: </string>
+
     <!--Menu options names-->
     <string name="scan_qr_code_title">Scan QR Code</string>
 
