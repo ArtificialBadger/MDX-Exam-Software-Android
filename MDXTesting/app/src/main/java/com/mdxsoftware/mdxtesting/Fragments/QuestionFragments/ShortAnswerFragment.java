@@ -38,7 +38,7 @@ public class ShortAnswerFragment extends QuestionFragment {
         this.questionTextView = (TextView) baseView.findViewById(R.id.short_answer_question_text_view);
         this.answerEditText = (EditText) baseView.findViewById(R.id.answer_edit_text);
 
-        ShortAnswerQuestion shortAnswerQuestion = (ShortAnswerQuestion) question;
+        final ShortAnswerQuestion shortAnswerQuestion = (ShortAnswerQuestion) question;
 
         questionTextView.setText(shortAnswerQuestion.getQuestion());
 
@@ -59,10 +59,7 @@ public class ShortAnswerFragment extends QuestionFragment {
 
             @Override
             public void afterTextChanged(Editable string) {
-
-                ((ShortAnswerQuestion) question).setEnteredAnswer(string.toString());
-                mListener.onAnswerChanged(question);
-
+                shortAnswerQuestion.setEnteredAnswer(string.toString());
             }
         });
 

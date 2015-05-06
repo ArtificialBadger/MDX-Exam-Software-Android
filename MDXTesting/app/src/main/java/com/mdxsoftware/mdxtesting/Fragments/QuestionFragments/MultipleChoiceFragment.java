@@ -60,6 +60,5 @@ public class MultipleChoiceFragment extends QuestionFragment implements RadioGro
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         ((MultipleChoiceQuestion) question).setEnteredAnswerIndex(answersRadioGroup.indexOfChild(group.findViewById(checkedId)));
-        this.mListener.onAnswerChanged(this.question);
     }
 }
