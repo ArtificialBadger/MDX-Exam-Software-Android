@@ -23,7 +23,7 @@ public class MatchingQuestion extends Question {
 
     public MatchingQuestion(MatchingQuestionResponse matchingQuestionResponse)
     {
-        this.type = matchingQuestionResponse.getType();
+        this.type = QuestionType.Matching;
         this.question = matchingQuestionResponse.getQuestion();
         this.questionGuid = matchingQuestionResponse.getQuestionGuid();
         this.choices = matchingQuestionResponse.getChoices();

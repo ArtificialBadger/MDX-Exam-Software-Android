@@ -1,6 +1,7 @@
 package com.mdxsoftware.mdxtesting.DataModel;
 
 import com.mdxsoftware.mdxtesting.DataModel.ResponseObjects.ExamResponse;
+import com.mdxsoftware.mdxtesting.DataModel.ResponseObjects.MatchingQuestionResponse;
 import com.mdxsoftware.mdxtesting.DataModel.ResponseObjects.MultipleChoiceQuestionResponse;
 import com.mdxsoftware.mdxtesting.DataModel.ResponseObjects.ShortAnswerQuestionResponse;
 
@@ -35,9 +36,15 @@ public class Exam implements Serializable{
                 questions.add(new ShortAnswerQuestion(shortAnswerQuestionResponse));
             }
 
+            for (MatchingQuestionResponse matchingQuestionResponse : examResponse.getMatchingQuestions()) {
+                questions.add(new MatchingQuestion(matchingQuestionResponse));
+            }
+
+
             this.examTitle = examResponse.getExamTitle();
             this.examID = examResponse.getExamGuid();
             this.testDuration = examResponse.getTestDuration();
+            this.questionList = questions;
         }
     }
 
