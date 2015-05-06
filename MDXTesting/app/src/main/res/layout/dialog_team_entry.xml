@@ -40,7 +40,7 @@
             android:id="@+id/team_name_entry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text|textNoSuggestions"/>
+            android:inputType="textVisiblePassword|textNoSuggestions"/>
 
     </LinearLayout>
 

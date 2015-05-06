@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -21,7 +22,6 @@ import com.mdxsoftware.mdxtesting.R;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Isaac on 5/5/2015.
@@ -31,10 +31,6 @@ public class MatchingFragment extends QuestionFragment{
     private TextView questionTextView;
 
     private LinearLayout questionLinearLayout;
-
-    private List<String> options;
-
-    private List<String> shuffledOptions;
 
     public static MatchingFragment newInstance(Question question)
     {
@@ -57,20 +53,19 @@ public class MatchingFragment extends QuestionFragment{
 
         questionTextView.setText(matchingQuestion.getQuestion());
 
-        options = new ArrayList<String>(matchingQuestion.getPairs().keySet());
+        final List<String> shuffledChoices = new ArrayList<String>(matchingQuestion.getChoices());
+        Collections.shuffle(shuffledChoices);
 
-        shuffledOptions = new ArrayList<String>(matchingQuestion.getPairs().keySet());
-        Collections.shuffle(shuffledOptions);
-
-        List<String> choices = new ArrayList<String>();
-        for (int i = 0; i < matchingQuestion.getPairs().size() + 1; i++)
+        List<String> spinnerChoices = new ArrayList<String>();
+        for (int i = 0; i < matchingQuestion.getChoices().size() + 1; i++)
         {
-            choices.add(i + "");
+            spinnerChoices.add(i + "");    // Do not change the how these are created, the index of the selected item is important to the listener
+
         }
 
-        for (int i = 0; i < matchingQuestion.getPairs().size(); i++)
+        for (int i = 0; i < matchingQuestion.getChoices().size(); i++)
         {
-            // A copy of i to be used in the selection listener for the spinner. A compler error exists if a non final variable is used.
+            // A copy of i to be used in the selection listener for the spinner. A compiler error exists if a non final variable is used.
             final int j = i;
 
             // Create a LinearLayout for the spinner, option, and answer
@@ -78,29 +73,27 @@ public class MatchingFragment extends QuestionFragment{
             linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             linearLayout.setOrientation(LinearLayout.HORIZONTAL);
             linearLayout.setGravity(Gravity.LEFT);
+            linearLayout.setPadding(8,8,8,0);
 
             // Create a TextView for the Option in random order
             TextView optionTextView = new TextView(getActivity());
             optionTextView.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, TableLayout.LayoutParams.WRAP_CONTENT, 1f));
             optionTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-            optionTextView.setText(shuffledOptions.get(i));
+            optionTextView.setText(shuffledChoices.get(i));
+
+            // Create a FrameLayout to house the spinner because the spinner was getting cropped off slightly when not in a frame
+            FrameLayout spinnerFrame = new FrameLayout(getActivity());
+            spinnerFrame.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT));
 
             // Create a spinner for the user to select an option
             Spinner spinner = new Spinner(getActivity());
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, choices);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, spinnerChoices);
             spinner.setAdapter(adapter);
 
             // If an answer already exists for this option in the entered pairs, prefill it
-            if (matchingQuestion.getEnteredPairs().containsKey(shuffledOptions.get(i)))
+            if (matchingQuestion.getEnteredPairs().containsKey(shuffledChoices.get(i)))
             {
-                for(Map.Entry<String, String> entry : matchingQuestion.getEnteredPairs().entrySet())
-                {
-                    if (matchingQuestion.getPairs().get(shuffledOptions.get(i)).equals(entry.getValue()))
-                    {
-                        matchingQuestion.getEnteredPairs().get(entry.getKey());
-                        spinner.setSelection(options.indexOf(entry.getKey()) + 1, false);
-                    }
-                }
+                spinner.setSelection(matchingQuestion.getAnswers().indexOf(matchingQuestion.getEnteredPairs().get(shuffledChoices.get(i))) + 1, false);
             }
 
             // The listener for the spinner when a new item is clicked
@@ -110,8 +103,8 @@ public class MatchingFragment extends QuestionFragment{
                     if (position > 0)
                     {
                         // Adds the user selected pair to the entered pairs Map
-                        matchingQuestion.getEnteredPairs().put(shuffledOptions.get(j), matchingQuestion.getPairs().get(options.get(position - 1)));
-                        Toast.makeText(getActivity(), shuffledOptions.get(j) + " -> " + matchingQuestion.getPairs().get(options.get(position - 1)), Toast.LENGTH_SHORT).show();
+                        matchingQuestion.getEnteredPairs().put(shuffledChoices.get(j), matchingQuestion.getAnswers().get(position - 1));
+                        Toast.makeText(getActivity(), shuffledChoices.get(j) + " -> " +  matchingQuestion.getAnswers().get(position - 1), Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -120,15 +113,16 @@ public class MatchingFragment extends QuestionFragment{
                     // We don't really care if they select nothing
                 }
             });
+            spinnerFrame.addView(spinner);
 
             // Create a TextView for the Answer
             TextView answerTextView = new TextView(getActivity());
             answerTextView.setLayoutParams(new TableLayout.LayoutParams(0, TableLayout.LayoutParams.WRAP_CONTENT, 1f));
             answerTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-            answerTextView.setText((i + 1) + ".\t" + matchingQuestion.getPairs().get(options.get(i)));
+            answerTextView.setText((i + 1) + ".\t" + matchingQuestion.getAnswers().get(i));
 
             // Add the views to a row
-            linearLayout.addView(spinner);
+            linearLayout.addView(spinnerFrame);
             linearLayout.addView(optionTextView);
             linearLayout.addView(answerTextView);
 

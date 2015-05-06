@@ -63,12 +63,18 @@ public class TestSelectionActivity extends Activity {
         answers.add("Of Mice and Men");
         answers.add("Pierce the Veil");
 
-        LinkedHashMap<String, String> map = new LinkedHashMap<>();
-        map.put("Red", "Blue");
-        map.put("Steel", "Iron");
-        map.put("Android", "iOS");
-        map.put("Ford", "Subaru");
-        map.put("Gauss", "Euler");
+        List<String> mulAnswers = new ArrayList<>();
+        List<String> choices = new ArrayList<>();
+        mulAnswers.add("Red");
+        choices.add("Blue");
+        mulAnswers.add("Android");
+        choices.add("iOS");
+        mulAnswers.add("Ford");
+        choices.add("Subaru");
+        mulAnswers.add("Gauss");
+        choices.add("Euler");
+        mulAnswers.add("Steel");
+        choices.add("Iron");
 
         List<Question> questionList = new ArrayList<Question>();
         questionList.add(new MultipleChoiceQuestion("Question 1", answers));
@@ -76,7 +82,7 @@ public class TestSelectionActivity extends Activity {
         questionList.add(new MultipleChoiceQuestion("This is the third and final question", answers));
         questionList.add(new ShortAnswerQuestion("This is a short answer question?"));
         questionList.add(new ShortAnswerQuestion("Compare and contrast the Clenshaw-Curtis and Gaussian quadratures"));
-        questionList.add(new MatchingQuestion("This is a matching question", map, new LinkedHashMap<String, String>()));
+        questionList.add(new MatchingQuestion("Match the items that are most similar", choices, mulAnswers, new LinkedHashMap<String, String>()));
 
         long duration = 3600000l;
 
